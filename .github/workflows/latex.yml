@@ -1,0 +1,46 @@
+name: Compile Engineering Challenges
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Récupérer le dépôt
+        uses: actions/checkout@v6
+
+      - name: Compiler le manuel LaTeX
+        uses: xu-cheng/latex-action@v4
+        with:
+          root_file: main.tex
+          working_directory: work_ec08
+          compiler: latexmk
+          args: -pdf -file-line-error -halt-on-error -interaction=nonstopmode
+
+      - name: Préparer les fichiers
+        if: always()
+        run: |
+          mkdir -p build
+          if [ -f work_ec08/main.pdf ]; then
+            cp work_ec08/main.pdf build/Engineering_Challenges.pdf
+          fi
+          if [ -f work_ec08/main.log ]; then
+            cp work_ec08/main.log build/main.log
+          fi
+
+      - name: Déposer le PDF et le journal
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Engineering-Challenges-build
+          path: build/
+          if-no-files-found: warn
+          retention-days: 30
