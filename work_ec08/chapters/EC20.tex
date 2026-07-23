@@ -3,9 +3,9 @@
 
 \ECObjectives{
 \begin{itemize}
-\item Compare linear and circular product life cycles.
-\item Explain design for durability, repair, disassembly and remanufacturing.
-\item Use life-cycle reasoning to avoid shifting environmental impacts.
+\item Compare linear and circular product life cycles using delivered service as a reference.
+\item Explain design for durability, repair, disassembly, refurbishment and remanufacturing.
+\item Use life-cycle and multicriteria reasoning to avoid shifting environmental impacts.
 \end{itemize}}
 
 \begin{multicols}{2}
@@ -17,9 +17,9 @@ product, module or component remains in use with the least possible transformati
 
 \begin{ecarticle}
 The traditional linear model follows a simple sequence: extract resources, manufacture a product,
-use it and discard it. This model discards materials, embodied energy and technical value at the end of each product life.
-A circular economy aims to keep products and materials useful for longer through maintenance, reuse,
-repair, refurbishment, remanufacturing and, finally, recycling.
+use it and discard it. This model loses materials, embodied energy and technical value at the end of
+each product life. A circular economy aims to keep products and materials useful for longer through
+maintenance, reuse, repair, refurbishment, remanufacturing and, finally, recycling.
 
 Engineering decisions made during design strongly influence these options. A durable product needs
 components that resist expected loads and environments. A repairable product needs accessible
@@ -34,18 +34,21 @@ performance and industrial constraints.
 Remanufacturing restores a used product to a defined level of performance. Components are inspected,
 cleaned, repaired or replaced and then tested. This can preserve more value than material recycling,
 but it requires traceability and a predictable return flow. Digital product passports can record
-materials, maintenance history and previous use, helping operators choose the most suitable recovery route.
+materials, maintenance history and previous use, helping operators choose the most suitable recovery
+route.
 
 Life-cycle assessment prevents misleading solutions. A heavier product may last longer but require
 more material and transport energy. A replaceable battery can extend product life, yet the sealing
 system must still meet safety requirements. Engineers compare resource use, energy, emissions and
 service life across the complete system boundary. The objective is not merely to close a loop, but to
-reduce the total environmental impact while still providing the required service.
+reduce total impact while still providing the required service.
 \end{ecarticle}
 
-\begin{tcolorbox}[title=\sffamily\bfseries Did You Know?,colback=yellow!10,colframe=ECOrange]
+\begin{tcolorbox}[title=\sffamily\bfseries Engineering Insight,colback=yellow!10,colframe=ECOrange]
 Recycling is important, but it often destroys much of the manufacturing value already invested in a
-component. Repair and reuse usually preserve more value when they are technically possible.
+component. Repair and reuse usually preserve more value when technical condition, safety and logistics
+allow them. The shortest loop is not automatically best unless the recovered product still satisfies
+its requirements.
 \end{tcolorbox}
 
 \begin{engineeringfocus}
@@ -79,15 +82,15 @@ Decision tool & life-cycle assessment
 \begin{tcolorbox}[title=\sffamily\bfseries Relative life-cycle impact,colback=white,colframe=ECRed]
 \begin{center}
 \begin{tikzpicture}
-\begin{axis}[xbar,width=0.97\linewidth,height=50mm,xlabel={Relative impact index},xmin=0,xmax=110,
+\begin{axis}[xbar,width=.94\linewidth,height=50mm,xlabel={Relative impact index},xmin=0,xmax=110,
 symbolic y coords={Reuse,Remanufacture,Refurbishment,Repair,Linear use},
 ytick=data,grid=major,ticklabel style={font=\scriptsize},nodes near coords]
 \addplot table[x=impact,y=strategy,col sep=comma]{data/EC20/lifecycle.csv};
 \end{axis}
 \end{tikzpicture}
 \end{center}
-\footnotesize Illustrative comparison for the same delivered service; real results depend on transport,
-energy mix, product lifetime and replacement parts.
+\footnotesize Illustrative comparison for the same delivered service; real results depend on
+transport, energy mix, product lifetime, failure rate and replacement parts.
 \end{tcolorbox}
 
 \begin{vocabulary}
@@ -105,7 +108,6 @@ life-cycle assessment & analyse du cycle de vie
 \end{tabularx}
 \end{vocabulary}
 
-
 \begin{applicationexercise}
 A company compares two strategies for providing 1,000 hours of service. A linear product lasts 500 h
 and has an impact index of 100 per product. A repairable version lasts 1,000 h and has an initial
@@ -115,7 +117,8 @@ impact index of 125; one repair adds an impact index of 15.
 \item Calculate the total impact index of the linear strategy.
 \item Calculate the total impact index of the repairable strategy, including one repair.
 \item Determine the percentage reduction achieved by the repairable strategy.
-\item Give one reason why this simplified comparison might not predict the real life-cycle result.
+\item Calculate the break-even repair impact above which the circular strategy is no longer preferable.
+\item Give two real-life parameters that should be added to the model.
 \end{enumerate}
 \end{applicationexercise}
 
@@ -125,17 +128,19 @@ impact index of 125; one repair adds an impact index of 15.
 \item What is the difference between refurbishment and remanufacturing?
 \item Why can permanent adhesive create an end-of-life problem?
 \item How does life-cycle assessment prevent impact shifting?
+\item Why must alternatives be compared for the same delivered service?
 \end{questions}
 
 \begin{engineeringchallenge}
-Redesign a cordless drill, laptop or coffee machine for a longer useful life. Define a modular
-architecture, select reversible joining methods, identify replaceable components and propose a
-collection and remanufacturing process. State one trade-off created by your design.
+Redesign a cordless drill, laptop or coffee machine for a longer useful life. Define requirements for
+lifetime, repair time, safety and cost. Propose a modular architecture, reversible joining methods,
+replaceable components, diagnostics and a collection/remanufacturing process. Compare the original and
+redesigned products with a weighted decision matrix and identify one rebound or impact-shifting risk.
 \end{engineeringchallenge}
 
 \begin{speaking}
 Should manufacturers be legally required to provide spare parts and repair information? Discuss cost,
-safety, innovation, ownership and environmental impact.
+safety, innovation, ownership and environmental impact, then propose one measurable obligation.
 \end{speaking}
 \end{multicols}
 
