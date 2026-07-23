@@ -4,8 +4,8 @@
 \ECObjectives{
 \begin{itemize}
 \item Explain how thrust, attitude and position are controlled in a multirotor drone.
-\item Identify the sensors used for stabilisation and navigation.
-\item Discuss endurance, payload, regulation and operational safety.
+\item Relate sensor characteristics and control-loop bandwidth to flight stability.
+\item Build a safe mission plan from payload, endurance, weather and fault-response requirements.
 \end{itemize}}
 
 \begin{multicols}{2}
@@ -24,13 +24,14 @@ drone to move horizontally or rotate.
 The flight controller closes several feedback loops. Gyroscopes measure angular velocity and
 accelerometers measure specific acceleration. Their signals are combined to estimate attitude. A
 barometer provides altitude information, while satellite navigation and cameras can estimate
-position and horizontal velocity. Sensor fusion is essential because every sensor has limitations: gyroscopes drift,
-accelerometers are disturbed by vibration and GNSS signals may be inaccurate or unavailable indoors.
+position and horizontal velocity. Sensor fusion is essential because every sensor has limitations:
+gyroscopes drift, accelerometers are disturbed by vibration and GNSS signals may be inaccurate or
+unavailable indoors.
 
 A common controller compares the desired attitude with the estimated attitude and adjusts motor
 speeds many times per second. The inner loop stabilises angular motion, while slower outer loops
 control velocity and position. If tuning is poor, the aircraft may oscillate or react too slowly to a
-gust.
+gust. Sampling frequency, actuator response and filtering must therefore be considered together.
 
 Endurance is strongly limited by battery mass. A larger battery stores more energy but also increases
 weight and the power required to hover. Payload has the same effect. Engineers therefore optimise the
@@ -44,15 +45,16 @@ entry into restricted zones, but it does not replace pilot responsibility, maint
 assessment.
 \end{ecarticle}
 
-\begin{tcolorbox}[title=\sffamily\bfseries Did You Know?,colback=yellow!10,colframe=ECOrange]
+\begin{tcolorbox}[title=\sffamily\bfseries Engineering Insight,colback=yellow!10,colframe=ECOrange]
 A quadrotor normally changes direction by tilting. Part of the total thrust then acts horizontally,
-so the motors must generate additional thrust to maintain altitude.
+so the motors must generate additional thrust to maintain altitude. Aggressive manoeuvres therefore
+consume energy faster than steady flight even when the travelled distance is unchanged.
 \end{tcolorbox}
 
 \begin{engineeringfocus}
 \textbf{Nested control loops of a drone}
 \begin{center}
-\resizebox{0.98\linewidth}{!}{%
+\resizebox{.98\linewidth}{!}{%
 \begin{tikzpicture}[font=\scriptsize,>=Latex,node distance=3.5mm]
 \node[draw=ECBlue,fill=ECLightBlue,rounded corners,align=center] (cmd) {position\\command};
 \node[draw=ECGreen,fill=ECGreen!10,rounded corners,align=center,right=of cmd] (pos) {position\\controller};
@@ -80,13 +82,14 @@ Typical fault action & return or land
 \begin{tcolorbox}[title=\sffamily\bfseries Payload and endurance,colback=white,colframe=ECOrange]
 \begin{center}
 \begin{tikzpicture}
-\begin{axis}[width=\linewidth,height=49mm,xlabel={Payload (kg)},ylabel={Endurance (min)},xmin=0,xmax=1.2,
+\begin{axis}[width=.94\linewidth,height=49mm,xlabel={Payload (kg)},ylabel={Endurance (min)},xmin=0,xmax=1.2,
 ymin=10,ymax=36,grid=major,ticklabel style={font=\scriptsize}]
 \addplot[very thick,mark=*] table[x=payload,y=endurance,col sep=comma]{data/EC18/drone_endurance.csv};
 \end{axis}
 \end{tikzpicture}
 \end{center}
-\footnotesize Illustrative trend for one aircraft: endurance decreases non-linearly as payload increases.
+\footnotesize Illustrative trend for one aircraft: endurance decreases non-linearly as payload
+increases. The graph must not be extrapolated beyond the validated operating range.
 \end{tcolorbox}
 
 \begin{vocabulary}
@@ -112,7 +115,8 @@ with 20\% of the initial flight time still available. The outward journey to an 
 \item Calculate the maximum authorised flight time before landing.
 \item Determine the time available for inspection over the target area.
 \item Recalculate this inspection time for a payload of 0.9 kg.
-\item State two reasons why the pilot should use a larger reserve in strong wind.
+\item Apply an additional 15\% endurance reduction for cold weather and recalculate the mission margin.
+\item State whether the mission should be accepted and justify your decision.
 \end{enumerate}
 \end{applicationexercise}
 
@@ -122,17 +126,19 @@ with 20\% of the initial flight time still available. The outward journey to an 
 \item Distinguish the attitude loop from the position loop.
 \item Explain the compromise created by a larger battery.
 \item What should happen after a communication failure?
+\item Why should a control loop not use an excessively noisy measurement directly?
 \end{questions}
 
 \begin{engineeringchallenge}
-Define a drone mission to inspect a bridge. Estimate the required payload and flight time, select the
-main sensors, propose a safe path and define the response to low battery, GNSS loss and communication
-loss.
+Define a drone mission to inspect a bridge. Write requirements for payload, image resolution,
+endurance, wind and separation distance. Select the main sensors, propose a safe path and define the
+response to low battery, GNSS loss and communication loss. Include an energy budget, a pre-flight
+checklist and three validation tests before operational approval.
 \end{engineeringchallenge}
 
 \begin{speaking}
 Should drones be authorised to deliver parcels in cities? Compare efficiency, noise, safety, privacy
-and infrastructure requirements.
+and infrastructure requirements, then state one quantitative acceptance criterion.
 \end{speaking}
 \end{multicols}
 
