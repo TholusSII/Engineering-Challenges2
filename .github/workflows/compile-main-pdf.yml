@@ -2,13 +2,19 @@ name: Compile Engineering Challenges PDF
 
 on:
   workflow_dispatch:
+    inputs:
+      upload_name:
+        description: "Name of the PDF artifact"
+        required: false
+        default: "Engineering-Challenges-PDF"
+        type: string
   pull_request:
     paths:
       - "work_ec08/**"
       - ".github/workflows/compile-main-pdf.yml"
   push:
     branches:
-      - main
+      - "**"
     paths:
       - "work_ec08/**"
       - ".github/workflows/compile-main-pdf.yml"
@@ -17,7 +23,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: compile-main-pdf-${{ github.ref }}
+  group: compile-main-pdf-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -37,10 +43,13 @@ jobs:
           latexmk_use_xelatex: false
           args: -pdf -file-line-error -halt-on-error -interaction=nonstopmode
 
+      - name: Verify generated PDF
+        run: test -s work_ec08/main.pdf
+
       - name: Upload compiled PDF
         uses: actions/upload-artifact@v4
         with:
-          name: Engineering-Challenges-PDF
+          name: ${{ github.event.inputs.upload_name || 'Engineering-Challenges-PDF' }}
           path: work_ec08/main.pdf
           if-no-files-found: error
           retention-days: 30
